@@ -146,9 +146,9 @@
         white-space: nowrap;
       }
       .lead-card { padding: 8px 10px 7px; border: 1px solid var(--line); border-radius: 10px; background: #fffdf9; }
-      .lead-line { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-      .lead-label { color: var(--muted); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-      .lead-result { font-size: 0.78rem; font-weight: 750; }
+      .lead-line { display:flex; align-items:center; justify-content:space-between; gap:6px; min-width:0; white-space:nowrap; }
+      .lead-label { flex:0 0 auto; color:var(--muted); font-size:.62rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
+      .lead-result { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right; font-size:.70rem; font-weight:750; }
       .lead-result.dem { color: var(--blue); }
       .lead-result.rep { color: var(--red); }
       .lead-result.tie { color: var(--muted); }
@@ -163,7 +163,10 @@
       .candidate-card.rep { border-top-color: var(--red); }
       .candidate-card.other { border-top-color: #8a8175; }
       .candidate-card.other .candidate-pct { color: var(--muted); }
-      .citywide-note { margin: 7px 2px 0; color: var(--muted); font-size: 0.67rem; line-height: 1.4; }
+      .citywide-note { margin: 5px 1px 0; color: var(--muted); font-size: 0.60rem; line-height: 1.28; }
+      .citywide-other-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 10px; margin-top:7px; padding-top:6px; border-top:1px solid var(--line); }
+      .citywide-other-item { display:flex; align-items:center; justify-content:space-between; gap:5px; min-width:0; color:var(--muted); font-size:.63rem; line-height:1.2; font-variant-numeric:tabular-nums; }
+      .citywide-other-item strong { flex:0 0 auto; color:var(--ink); font-weight:750; }
       .candidate-pct {
         display: block;
         margin-top: 5px;
@@ -239,7 +242,7 @@
       .citywide-note { margin:5px 1px 0; font-size:.60rem; line-height:1.28; }
       .district-section { padding:9px 14px; } .interaction-hint { margin-bottom:5px; font-size:.61rem; } .district-card { gap:5px; }
       .district-title { font-size:.90rem; } .district-subtitle { font-size:.64rem; } .lead-card { padding:5px 7px; }
-      .lead-line { align-items:flex-start; } .lead-label { font-size:.62rem; } .lead-result { font-size:.70rem; text-align:right; }
+      .lead-line { align-items:center; } .lead-label { font-size:.60rem; } .lead-result { font-size:.68rem; }
       .lead-card .share-track { height:5px; margin-top:5px; } .share-track .other-fill { background:#e9e3d9; }
       .candidate-grid { gap:4px; column-gap:5px; } .candidate-grid .breakdown-title,.candidate-grid .breakdown-note { grid-column:1/-1; }
       .candidate-card { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:baseline; gap:1px 4px; min-height:0; padding:4px 6px; border-top:3px solid var(--candidate-color,#8a8175); border-radius:7px; }
@@ -256,19 +259,19 @@
       <header class="panel-header">
         <p class="kicker">New York City · November 4, 2025</p>
         <h1>Mayor, district by district</h1>
-        <p class="lede">Certified citywide results and district returns. Map color identifies the candidate leading in each district.</p>
+        <p class="lede">2025 NYC mayoral results by district.</p>
       </header>
 
       <section class="citywide" aria-label="Citywide certified results">
-        <p class="section-label">Citywide · certified two-candidate share</p>
+        <p class="section-label">Citywide · Mamdani–Cuomo share</p>
         <div class="score-grid">
           <div class="score-card dem">
-            <span class="candidate-name">Zohran Kwame Mamdani</span>
+            <span class="candidate-name">Mamdani</span>
             <strong class="score-pct">55.1%</strong>
             <span class="score-votes">1,114,184 votes</span>
           </div>
           <div class="score-card rep">
-            <span class="candidate-name">Andrew M. Cuomo</span>
+            <span class="candidate-name">Cuomo</span>
             <strong class="score-pct">44.9%</strong>
             <span class="score-votes">906,614 votes</span>
           </div>
@@ -277,10 +280,10 @@
           <span class="dem-fill" style="width:55.1%"></span>
           <span class="rep-fill" style="width:44.9%"></span>
         </div>
-        <div class="map-legend" aria-label="Map color identifies the leading candidate in each district">
+        <div class="map-legend" aria-label="Mamdani to Cuomo vote-share gradient; other candidates have distinct leader colors">
+          <div class="map-legend-track"></div>
+          <div class="map-legend-labels"><span>Mamdani-heavy</span><span>Even</span><span>Cuomo-heavy</span></div>
           <div class="candidate-legend">
-            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--mamdani)"></i>Mamdani</span>
-            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--cuomo)"></i>Cuomo</span>
             <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--sliwa)"></i>Sliwa</span>
             <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--adams)"></i>Adams</span>
             <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--estrada)"></i>Estrada</span>
@@ -288,9 +291,15 @@
             <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--hernandez)"></i>Hernandez</span>
           </div>
         </div>
-        <p class="citywide-note">Curtis A. Sliwa: 153,749 votes · Eric L. Adams: 6,897 · Irene Estrada: 2,856 · Jim Walden: 2,319 · Joseph Hernandez: 1,379.</p>
-        <p class="citywide-note">Percentages compare Mamdani and Cuomo only; other candidates and write-ins are excluded.</p>
-        <p class="citywide-note">District-data caveat: the archived ED file totals 901,253 votes for Cuomo, 5,361 below the certified citywide total of 906,614. District details and map shading use the archived ED file; they are not certified district totals.</p>
+        <div class="citywide-other-grid" aria-label="Other candidates' certified citywide votes">
+          <div class="citywide-other-item"><span>Sliwa</span><strong>153,749</strong></div>
+          <div class="citywide-other-item"><span>Adams</span><strong>6,897</strong></div>
+          <div class="citywide-other-item"><span>Estrada</span><strong>2,856</strong></div>
+          <div class="citywide-other-item"><span>Walden</span><strong>2,319</strong></div>
+          <div class="citywide-other-item"><span>Hernandez</span><strong>1,379</strong></div>
+        </div>
+        <p class="citywide-note">The percentages above compare Mamdani and Cuomo only.</p>
+        <p class="citywide-note">Archived district file: Cuomo is 5,361 votes below the certified citywide total. District returns are not certified.</p>
       </section>
 
       <section class="district-section" aria-live="polite" aria-atomic="true">
@@ -301,18 +310,18 @@
             <button id="mode-ad" type="button" aria-label="Show assembly district results" aria-pressed="false" title="Assembly district">Assembly district</button>
           </div>
         </div>
-        <p class="interaction-hint" id="interaction-hint">Hover an election district to preview · click to select</p>
+        <p class="interaction-hint" id="interaction-hint">Hover or click a district.</p>
         <div id="detail">
           <div class="empty-state">
             <div class="empty-icon" aria-hidden="true">＋</div>
             <p class="empty-title">Explore the map</p>
-            <p class="empty-copy">Hover over a district for a quick preview. Click to keep its full results here.</p>
+            <p class="empty-copy">Hover or click a district.</p>
           </div>
         </div>
       </section>
 
       <footer class="panel-footer">
-        Citywide figures: BOE certified recap (December 2, 2025). District figures: archived BOE election-district return file; the Cuomo district sum does not reconcile to the certified citywide total.
+        Citywide: BOE certified recap. Districts: archived ED file; Cuomo is 5,361 votes short of the certified total.
         Boundaries: NYC DCP 25C. <a href="https://vote.nyc/page/election-results-summary-2025" target="_blank" rel="noreferrer">Official certified results and ED-level data</a>.
       </footer>
     </aside>
@@ -604,19 +613,21 @@
         });
       }
       const candidates = [
-        {name:"Zohran Kwame Mamdani",field:"mamdani",key:"mamdani",color:"#245b92"},
-        {name:"Andrew M. Cuomo",field:"cuomo",key:"cuomo",color:"#ae3b38"},
-        {name:"Curtis A. Sliwa",field:"sliwa",key:"sliwa",color:"#bd781f"},
-        {name:"Eric L. Adams",field:"adams",key:"adams",color:"#7651a0"},
-        {name:"Irene Estrada",field:"estrada",key:"estrada",color:"#16806f"},
-        {name:"Jim Walden",field:"walden",key:"walden",color:"#687782"},
-        {name:"Joseph Hernandez",field:"hernandez",key:"hernandez",color:"#a05a7a"}
+        {name:"Zohran Kwame Mamdani",short:"Mamdani",field:"mamdani",key:"mamdani",color:"#245b92"},
+        {name:"Andrew M. Cuomo",short:"Cuomo",field:"cuomo",key:"cuomo",color:"#ae3b38"},
+        {name:"Curtis A. Sliwa",short:"Sliwa",field:"sliwa",key:"sliwa",color:"#bd781f"},
+        {name:"Eric L. Adams",short:"Adams",field:"adams",key:"adams",color:"#7651a0"},
+        {name:"Irene Estrada",short:"Estrada",field:"estrada",key:"estrada",color:"#16806f"},
+        {name:"Jim Walden",short:"Walden",field:"walden",key:"walden",color:"#687782"},
+        {name:"Joseph Hernandez",short:"Hernandez",field:"hernandez",key:"hernandez",color:"#a05a7a"}
       ];
       function applyLeaderProperties(properties) {
         const ranked=candidates.map((candidate)=>({...candidate,votes:number(properties[candidate.field])})).sort((a,b)=>b.votes-a.votes);
         const total=ranked.reduce((sum,candidate)=>sum+candidate.votes,0), first=ranked[0], second=ranked[1];
         properties.winner_key=total&&first.votes>0?(first.votes===second.votes?"tie":first.key):"none";
         properties.winner_margin=total&&first&&second?Math.max(0,(first.votes-second.votes)/total*100):0;
+        const twoPartyTotal=number(properties.mamdani)+number(properties.cuomo);
+        properties.cuomo_share=twoPartyTotal?number(properties.cuomo)/twoPartyTotal:0;
         return {ranked,total,first,second};
       }
       function renderDistrict(properties,isPinned,level) {
@@ -629,27 +640,25 @@
         const card=append(detail,element("div","district-card"));
         const titleRow=append(card,element("div","district-title-row"));
         const titleWrap=append(titleRow,element("div","district-title-wrap"));
-        append(titleWrap,element("h2","district-title",level==="ad"?"Assembly District "+properties.ad:"Assembly District "+properties.ad+" · Election District "+properties.ed));
-        append(titleWrap,element("p","district-subtitle",level==="ad"?properties.edCount+" mapped election districts · "+votes(total)+" named-candidate votes":votes(total)+" named-candidate votes"));
+        append(titleWrap,element("h2","district-title",level==="ad"?"AD "+properties.ad:"AD "+properties.ad+" · ED "+properties.ed));
+        append(titleWrap,element("p","district-subtitle",level==="ad"?properties.edCount+" EDs · "+votes(total)+" votes":votes(total)+" votes"));
         append(titleRow,element("span","district-chip",isPinned?"SELECTED":"PREVIEW"));
         const lead=append(card,element("div","lead-card")), leadLine=append(lead,element("div","lead-line"));
         append(leadLine,element("span","lead-label","District leader"));
-        const leadText=!total?"No reported candidate votes":first.votes===second.votes?first.name+" tied with "+second.name:first.name+" leads "+second.name+" by "+((first.votes-second.votes)/total*100).toFixed(1)+" pts";
+        const leadText=!total?"No result":first.votes===second.votes?"Tie · "+first.short+" / "+second.short:first.short+" +"+((first.votes-second.votes)/total*100).toFixed(1)+" pts vs "+second.short;
         const result=append(leadLine,element("span","lead-result",leadText)); if(total) result.style.color=first.votes===second.votes?"#71695e":first.color;
         shareBar(lead,first,second,total);
         const grid=append(card,element("div","candidate-grid"));
-        append(grid,element("p","breakdown-title","All candidates"));
-        append(grid,element("span","breakdown-note","Share of named-candidate votes · ranked first to seventh"));
+        append(grid,element("p","breakdown-title","Named candidates"));
         ranked.forEach((candidate)=>{
           const pct=total?100*candidate.votes/total:0;
           const item=append(grid,element("div","candidate-card"+(total&&first.votes!==second.votes&&candidate.key===first.key?" is-leader":"")));
           item.style.setProperty("--candidate-color",candidate.color);
-          append(item,element("span","candidate-name",candidate.name));
+          append(item,element("span","candidate-name",candidate.short));
           append(item,element("strong","candidate-pct",pct.toFixed(1)+"%"));
           append(item,element("span","candidate-votes",votes(candidate.votes)+" votes"));
         });
-        append(card,element("p","breakdown-note","Lead and map color compare all seven named candidates. Write-ins are not separately identified in this district file."));
-        hint.textContent=isPinned?"Click another district to compare":"Click to keep this district selected";
+        hint.textContent=isPinned?"Click another district":"Click to select";
       }
       function showEmptyState() {
         displayedDistrictId = null;
@@ -659,9 +668,7 @@
         append(empty, element("div", "empty-icon", "＋"));
         append(empty, element("p", "empty-title", "Explore the map"));
         append(empty, element("p", "empty-copy", "Hover over a district for a quick preview. Click to keep its full results here."));
-        hint.textContent = selectionMode === "ed"
-          ? "Hover an election district to preview · click to select"
-          : "Hover an assembly district to preview · click to select";
+        hint.textContent = "Hover or click a district.";
       }
       function setFeatureState(id, state) {
         if (id === null || id === undefined || !map.getSource("eds")) return;
@@ -691,9 +698,7 @@
       function updateModeButtons() {
         modeEdButton.setAttribute("aria-pressed", selectionMode === "ed" ? "true" : "false");
         modeAdButton.setAttribute("aria-pressed", selectionMode === "ad" ? "true" : "false");
-        hint.textContent = selectionMode === "ed"
-          ? "Hover an election district to preview · click to select"
-          : "Hover an assembly district to preview · click to select";
+        hint.textContent = "Hover or click a district.";
       }
       function setSelectionMode(mode) {
         if (selectionMode === mode) return;
@@ -790,18 +795,48 @@
               source: "eds",
               paint: {
                 "fill-color": [
-                "match", ["get", "winner_key"],
-                "mamdani", "#245b92", "cuomo", "#ae3b38", "sliwa", "#bd781f",
-                "adams", "#7651a0", "estrada", "#16806f", "walden", "#687782",
-                "hernandez", "#a05a7a", "#e9e3d9"
-              ],
-              "fill-opacity": [
-                "case",
-                ["<=", ["coalesce", ["get", "total"], 0], 10], 0,
-                ["interpolate", ["linear"], ["get", "winner_margin"],
-                  0, 0.48, 10, 0.62, 25, 0.76, 50, 0.88, 100, 0.96
+                  "case",
+                  ["any",
+                    ["==", ["get", "winner_key"], "mamdani"],
+                    ["==", ["get", "winner_key"], "cuomo"]
+                  ],
+                  ["interpolate", ["linear"], ["get", "cuomo_share"],
+                    0, "#08306b",
+                    0.05, "#124481",
+                    0.10, "#275e97",
+                    0.15, "#4578aa",
+                    0.20, "#6390b9",
+                    0.25, "#769ec2",
+                    0.30, "#7ea4c6",
+                    0.35, "#96b7ce",
+                    0.40, "#abc8d7",
+                    0.45, "#c8d8db",
+                    0.50, "#ece8dc",
+                    0.55, "#eacdc0",
+                    0.60, "#e6b4a6",
+                    0.65, "#de9d8f",
+                    0.70, "#d47d70",
+                    0.75, "#c96054",
+                    0.80, "#ba4b42",
+                    0.85, "#aa342d",
+                    0.90, "#952622",
+                    0.95, "#801919",
+                    1, "#6e1012"
+                  ],
+                  ["match", ["get", "winner_key"],
+                    "sliwa", "#bd781f",
+                    "adams", "#7651a0",
+                    "estrada", "#16806f",
+                    "walden", "#687782",
+                    "hernandez", "#a05a7a",
+                    "#e9e3d9"
+                  ]
+                ],
+                "fill-opacity": [
+                  "case",
+                  ["<=", ["coalesce", ["get", "total"], 0], 10], 0,
+                  0.93
                 ]
-              ]
               }
             }, labelLayerId);
             map.addLayer({
