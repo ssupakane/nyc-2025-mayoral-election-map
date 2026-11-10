@@ -14,7 +14,7 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000/.
 
-Each district is ranked across all seven named candidates. Map color identifies the leader; the light-to-dark shade is based on that candidate's margin over the actual runner-up, with a continuous gradient from neutral for close races to the leader's candidate color for larger leads. The detail panel shows all seven candidates and the actual first- and second-place finishers. Exact ties use a neutral map color. The citywide bar is proportional across all seven certified named-candidate totals; write-ins are not included.
+Each district is ranked across all seven named candidates. Map color identifies the leader; shade intensity reflects the leader's margin over the actual runner-up. The Mamdani and Cuomo ramps use the exact 21 color stops from the original 2026 map gradient, mapped from neutral at a tie to the original blue or red endpoint at a 100-point lead. Other candidates retain their distinct color ramps. Exact ties use a neutral map color. The citywide bar is proportional across all seven certified named-candidate totals; write-ins are not included.
 
 ## Citywide certified results
 
