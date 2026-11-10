@@ -227,6 +227,28 @@
         .party-row { font-size: 0.65rem; }
         .maplibregl-ctrl-bottom-right { bottom: 8px !important; right: 8px !important; }
       }
+
+      :root { --mamdani:#245b92; --cuomo:#ae3b38; --sliwa:#bd781f; --adams:#7651a0; --estrada:#16806f; --walden:#687782; --hernandez:#a05a7a; }
+      .panel-header { padding:10px 14px 7px; } h1 { font-size:1.38rem; } .lede { font-size:.75rem; line-height:1.3; }
+      .citywide { margin:0 14px 8px; padding:7px 9px 6px; } .section-label { margin-bottom:5px; font-size:.62rem; }
+      .score-grid { gap:7px; } .score-card { padding-left:7px; border-left-width:3px; } .score-pct { margin-top:1px; font-size:1.27rem; }
+      .score-votes { margin-top:2px; font-size:.64rem; } .share-track { height:5px; margin-top:6px; }
+      .map-legend { margin-top:6px; } .candidate-legend { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:3px 8px; }
+      .candidate-legend-item { display:flex; align-items:center; gap:5px; min-width:0; color:var(--muted); font-size:.61rem; line-height:1.2; }
+      .candidate-legend-swatch { flex:0 0 auto; width:8px; height:8px; border-radius:2px; }
+      .citywide-note { margin:5px 1px 0; font-size:.60rem; line-height:1.28; }
+      .district-section { padding:9px 14px; } .interaction-hint { margin-bottom:5px; font-size:.61rem; } .district-card { gap:5px; }
+      .district-title { font-size:.90rem; } .district-subtitle { font-size:.64rem; } .lead-card { padding:5px 7px; }
+      .lead-line { align-items:flex-start; } .lead-label { font-size:.62rem; } .lead-result { font-size:.70rem; text-align:right; }
+      .lead-card .share-track { height:5px; margin-top:5px; } .share-track .other-fill { background:#e9e3d9; }
+      .candidate-grid { gap:4px; column-gap:5px; } .candidate-grid .breakdown-title,.candidate-grid .breakdown-note { grid-column:1/-1; }
+      .candidate-card { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:baseline; gap:1px 4px; min-height:0; padding:4px 6px; border-top:3px solid var(--candidate-color,#8a8175); border-radius:7px; }
+      .candidate-card .candidate-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.62rem; line-height:1.15; }
+      .candidate-card .candidate-pct { grid-column:2; grid-row:1; margin:0; color:var(--candidate-color,var(--muted)); font-family:"IBM Plex Sans","Segoe UI",sans-serif; font-size:.91rem; font-weight:750; line-height:1; }
+      .candidate-card .candidate-votes { grid-column:1/-1; margin:0; font-size:.58rem; line-height:1.15; }
+      .candidate-card.is-leader { background:#fffaf0; border-bottom:1px solid var(--candidate-color); }
+      .panel-footer { padding:6px 14px 8px; font-size:.59rem; line-height:1.28; }
+      @media(max-width:560px) { .panel-header{padding:9px 12px 6px}.citywide{margin:0 12px 7px;padding:6px 8px}.district-section{padding:8px 12px}.candidate-grid{column-gap:4px}.candidate-card .candidate-name{font-size:.59rem}.candidate-card .candidate-pct{font-size:.85rem}.candidate-card .candidate-votes{font-size:.56rem}.panel-footer{padding:6px 12px 7px} }
     </style>
   </head>
   <body>
@@ -234,7 +256,7 @@
       <header class="panel-header">
         <p class="kicker">New York City · November 4, 2025</p>
         <h1>Mayor, district by district</h1>
-        <p class="lede">Certified general-election results. Select an election district on the map to inspect its vote.</p>
+        <p class="lede">Certified citywide results and district returns. Map color identifies the candidate leading in each district.</p>
       </header>
 
       <section class="citywide" aria-label="Citywide certified results">
@@ -255,9 +277,16 @@
           <span class="dem-fill" style="width:55.1%"></span>
           <span class="rep-fill" style="width:44.9%"></span>
         </div>
-        <div class="map-legend" role="img" aria-label="District map colors: Mamdani-heavy blue through even cream to Cuomo-heavy red">
-          <div class="map-legend-track"></div>
-          <div class="map-legend-labels"><span>Mamdani-heavy</span><span>Even</span><span>Cuomo-heavy</span></div>
+        <div class="map-legend" aria-label="Map color identifies the leading candidate in each district">
+          <div class="candidate-legend">
+            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--mamdani)"></i>Mamdani</span>
+            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--cuomo)"></i>Cuomo</span>
+            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--sliwa)"></i>Sliwa</span>
+            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--adams)"></i>Adams</span>
+            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--estrada)"></i>Estrada</span>
+            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--walden)"></i>Walden</span>
+            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--hernandez)"></i>Hernandez</span>
+          </div>
         </div>
         <p class="citywide-note">Curtis A. Sliwa: 153,749 votes · Eric L. Adams: 6,897 · Irene Estrada: 2,856 · Jim Walden: 2,319 · Joseph Hernandez: 1,379.</p>
         <p class="citywide-note">Percentages compare Mamdani and Cuomo only; other candidates and write-ins are excluded.</p>
@@ -554,14 +583,14 @@
         parent.appendChild(child);
         return child;
       }
-      function shareBar(parent, mamdaniPct, cuomoPct) {
-        const track = append(parent, element("div", "share-track"));
-        track.setAttribute("role", "img");
-        track.setAttribute("aria-label", "Two-candidate share: Mamdani " + mamdaniPct + " percent, Cuomo " + cuomoPct + " percent");
-        const blue = append(track, element("span", "dem-fill"));
-        blue.style.width = mamdaniPct + "%";
-        const red = append(track, element("span", "rep-fill"));
-        red.style.width = cuomoPct + "%";
+      function shareBar(parent, first, second, total) {
+        const track=append(parent,element("div","share-track"));
+        const firstPct=total?100*first.votes/total:0, secondPct=total?100*second.votes/total:0;
+        const otherPct=Math.max(0,100-firstPct-secondPct);
+        track.setAttribute("aria-label",first.name+" "+firstPct.toFixed(1)+" percent, "+second.name+" "+secondPct.toFixed(1)+" percent, other candidates "+otherPct.toFixed(1)+" percent");
+        const a=append(track,element("span","dem-fill")); a.style.width=firstPct+"%"; a.style.background=first.color;
+        const b=append(track,element("span","rep-fill")); b.style.width=secondPct+"%"; b.style.background=second.color;
+        const c=append(track,element("span","other-fill")); c.style.width=otherPct+"%";
       }
       function partyGroup(parent, label, className, lines) {
         const group = append(parent, element("div", "party-group " + className));
@@ -574,71 +603,53 @@
           append(row, element("span", "party-value", line.value === null ? "—" : votes(line.value)));
         });
       }
-      function renderDistrict(properties, isPinned, level) {
-        if (!properties) return;
-        const districtId = level === "ad"
-          ? "ad:" + properties.ad
-          : "ed:" + (properties.elect_dist ?? (String(properties.ad) + "-" + String(properties.ed)));
-        if (displayedDistrictId === districtId && displayedPinned === isPinned) return;
-        displayedDistrictId = districtId;
-        displayedPinned = isPinned;
-
-        const mamdani = number(properties.mamdani);
-        const cuomo = number(properties.cuomo);
-        const twoParty = mamdani + cuomo;
-        const mamdaniPct = twoParty ? (100 * mamdani / twoParty) : 0;
-        const cuomoPct = twoParty ? (100 * cuomo / twoParty) : 0;
-        const total = firstValue(properties, ["total"]) ?? twoParty;
-        const margin = Math.abs(mamdaniPct - cuomoPct);
-        const winner = mamdani > cuomo ? "Mamdani leads" : cuomo > mamdani ? "Cuomo leads" : "Even";
-        const winnerClass = mamdani > cuomo ? "dem" : cuomo > mamdani ? "rep" : "tie";
-        const marginText = twoParty ? margin.toFixed(1) + " pts" : "—";
-
+      const candidates = [
+        {name:"Zohran Kwame Mamdani",field:"mamdani",key:"mamdani",color:"#245b92"},
+        {name:"Andrew M. Cuomo",field:"cuomo",key:"cuomo",color:"#ae3b38"},
+        {name:"Curtis A. Sliwa",field:"sliwa",key:"sliwa",color:"#bd781f"},
+        {name:"Eric L. Adams",field:"adams",key:"adams",color:"#7651a0"},
+        {name:"Irene Estrada",field:"estrada",key:"estrada",color:"#16806f"},
+        {name:"Jim Walden",field:"walden",key:"walden",color:"#687782"},
+        {name:"Joseph Hernandez",field:"hernandez",key:"hernandez",color:"#a05a7a"}
+      ];
+      function applyLeaderProperties(properties) {
+        const ranked=candidates.map((candidate)=>({...candidate,votes:number(properties[candidate.field])})).sort((a,b)=>b.votes-a.votes);
+        const total=ranked.reduce((sum,candidate)=>sum+candidate.votes,0), first=ranked[0], second=ranked[1];
+        properties.winner_key=total&&first.votes>0?first.key:"none";
+        properties.winner_margin=total&&first&&second?Math.max(0,(first.votes-second.votes)/total*100):0;
+        return {ranked,total,first,second};
+      }
+      function renderDistrict(properties,isPinned,level) {
+        if(!properties) return;
+        const districtId=level==="ad"?"ad:"+properties.ad:"ed:"+(properties.elect_dist??(String(properties.ad)+"-"+String(properties.ed)));
+        if(displayedDistrictId===districtId&&displayedPinned===isPinned) return;
+        displayedDistrictId=districtId; displayedPinned=isPinned;
+        const {ranked,total,first,second}=applyLeaderProperties(properties);
         detail.replaceChildren();
-        const card = append(detail, element("div", "district-card"));
-        const titleRow = append(card, element("div", "district-title-row"));
-        const titleWrap = append(titleRow, element("div", "district-title-wrap"));
-        append(titleWrap, element("h2", "district-title",
-          level === "ad"
-            ? "Assembly District " + properties.ad
-            : "Assembly District " + properties.ad + " · Election District " + properties.ed
-        ));
-        append(titleWrap, element("p", "district-subtitle",
-          level === "ad"
-            ? properties.edCount + " mapped election districts · " + votes(total) + " named-candidate votes"
-            : votes(total) + " named-candidate votes"
-        ));
-        append(titleRow, element("span", "district-chip", isPinned ? "SELECTED" : "PREVIEW"));
-
-        const lead = append(card, element("div", "lead-card"));
-        const leadLine = append(lead, element("div", "lead-line"));
-        append(leadLine, element("span", "lead-label", "Mamdani vs. Cuomo"));
-        append(leadLine, element("span", "lead-result " + winnerClass, winner + (twoParty ? " · " + marginText : "")));
-        shareBar(lead, mamdaniPct.toFixed(1), cuomoPct.toFixed(1));
-
-        const candidates = append(card, element("div", "candidate-grid"));
-        append(candidates, element("p", "breakdown-title", "Candidate vote detail"));
-        append(candidates, element("span", "breakdown-note", "Share of named-candidate votes"));
-        const candidateRows = [
-          { name: "Zohran Kwame Mamdani", field: "mamdani", kind: "dem" },
-          { name: "Andrew M. Cuomo", field: "cuomo", kind: "rep" },
-          { name: "Curtis A. Sliwa", field: "sliwa", kind: "other" },
-          { name: "Eric L. Adams", field: "adams", kind: "other" },
-          { name: "Irene Estrada", field: "estrada", kind: "other" },
-          { name: "Jim Walden", field: "walden", kind: "other" },
-          { name: "Joseph Hernandez", field: "hernandez", kind: "other" }
-        ];
-        candidateRows.forEach((candidate) => {
-          const candidateVotes = number(properties[candidate.field]);
-          const candidatePct = total ? (100 * candidateVotes / total) : 0;
-          const candidateCard = append(candidates, element("div", "candidate-card " + candidate.kind));
-          append(candidateCard, element("span", "candidate-name", candidate.name));
-          append(candidateCard, element("strong", "candidate-pct", candidatePct.toFixed(1) + "%"));
-          append(candidateCard, element("span", "candidate-votes", votes(candidateVotes) + " votes"));
+        const card=append(detail,element("div","district-card"));
+        const titleRow=append(card,element("div","district-title-row"));
+        const titleWrap=append(titleRow,element("div","district-title-wrap"));
+        append(titleWrap,element("h2","district-title",level==="ad"?"Assembly District "+properties.ad:"Assembly District "+properties.ad+" · Election District "+properties.ed));
+        append(titleWrap,element("p","district-subtitle",level==="ad"?properties.edCount+" mapped election districts · "+votes(total)+" named-candidate votes":votes(total)+" named-candidate votes"));
+        append(titleRow,element("span","district-chip",isPinned?"SELECTED":"PREVIEW"));
+        const lead=append(card,element("div","lead-card")), leadLine=append(lead,element("div","lead-line"));
+        append(leadLine,element("span","lead-label","District leader"));
+        const leadText=!total?"No reported candidate votes":first.votes===second.votes?first.name+" tied with "+second.name:first.name+" leads "+second.name+" by "+((first.votes-second.votes)/total*100).toFixed(1)+" pts";
+        const result=append(leadLine,element("span","lead-result",leadText)); if(total) result.style.color=first.color;
+        shareBar(lead,first,second,total);
+        const grid=append(card,element("div","candidate-grid"));
+        append(grid,element("p","breakdown-title","All candidates"));
+        append(grid,element("span","breakdown-note","Share of named-candidate votes · ranked first to seventh"));
+        ranked.forEach((candidate)=>{
+          const pct=total?100*candidate.votes/total:0;
+          const item=append(grid,element("div","candidate-card"+(total&&candidate.key===first.key?" is-leader":"")));
+          item.style.setProperty("--candidate-color",candidate.color);
+          append(item,element("span","candidate-name",candidate.name));
+          append(item,element("strong","candidate-pct",pct.toFixed(1)+"%"));
+          append(item,element("span","candidate-votes",votes(candidate.votes)+" votes"));
         });
-        const note = append(card, element("p", "breakdown-note", "Write-in votes are not broken out by name in this district view. Map shading compares Mamdani and Cuomo only."));
-
-        hint.textContent = isPinned ? "Click another district to compare" : "Click to keep this district selected";
+        append(card,element("p","breakdown-note","Lead and map color compare all seven named candidates. Write-ins are not separately identified in this district file."));
+        hint.textContent=isPinned?"Click another district to compare":"Click to keep this district selected";
       }
       function showEmptyState() {
         displayedDistrictId = null;
@@ -750,13 +761,25 @@
           aggregateFields.forEach((field) => {
             properties[field] = Number(result[field]) || 0;
           });
-          const twoParty = properties.mamdani + properties.cuomo;
-          properties.cuomo_share = twoParty ? properties.cuomo / twoParty : 0.5;
+          applyLeaderProperties(properties);
           feature.properties = properties;
           return true;
         });
 
         if (!geo.features.length) throw new Error("No election districts were found in the boundary archive");
+        geo.features.forEach((feature) => {
+          const p=feature.properties, ad=Number(p.ad), id=String(p.elect_dist);
+          if(!adFeatureIds.has(ad)) adFeatureIds.set(ad,[]);
+          adFeatureIds.get(ad).push(id);
+          if(!assemblyResults.has(ad)) {
+            const aggregate={ad,edCount:0}; aggregateFields.forEach((field)=>{aggregate[field]=0;});
+            assemblyResults.set(ad,aggregate);
+          }
+          const aggregate=assemblyResults.get(ad); aggregate.edCount+=1;
+          aggregateFields.forEach((field)=>{aggregate[field]+=number(p[field]);});
+        });
+        assemblyResults.forEach((aggregate)=>applyLeaderProperties(aggregate));
+
                   const addDistrictLayers = () => {
             map.addSource("eds", { type: "geojson", data: geo, promoteId: "elect_dist" });
             const firstSymbolLayer = map.getStyle().layers.find((layer) => layer.type === "symbol");
@@ -767,34 +790,18 @@
               source: "eds",
               paint: {
                 "fill-color": [
-                  "interpolate", ["linear"], ["get", "cuomo_share"],
-                  0, "#08306b",
-                  0.05, "#124481",
-                  0.10, "#275e97",
-                  0.15, "#4578aa",
-                  0.20, "#6390b9",
-                  0.25, "#769ec2",
-                  0.30, "#7ea4c6",
-                  0.35, "#96b7ce",
-                  0.40, "#abc8d7",
-                  0.45, "#c8d8db",
-                  0.50, "#ece8dc",
-                  0.55, "#eacdc0",
-                  0.60, "#e6b4a6",
-                  0.65, "#de9d8f",
-                  0.70, "#d47d70",
-                  0.75, "#c96054",
-                  0.80, "#ba4b42",
-                  0.85, "#aa342d",
-                  0.90, "#952622",
-                  0.95, "#801919",
-                  1, "#6e1012"
-                ],
-                "fill-opacity": [
-                  "case",
-                  ["<=", ["coalesce", ["get", "total"], 0], 10], 0,
-                  0.93
+                "match", ["get", "winner_key"],
+                "mamdani", "#245b92", "cuomo", "#ae3b38", "sliwa", "#bd781f",
+                "adams", "#7651a0", "estrada", "#16806f", "walden", "#687782",
+                "hernandez", "#a05a7a", "#e9e3d9"
+              ],
+              "fill-opacity": [
+                "case",
+                ["<=", ["coalesce", ["get", "total"], 0], 10], 0,
+                ["interpolate", ["linear"], ["get", "winner_margin"],
+                  0, 0.48, 10, 0.62, 25, 0.76, 50, 0.88, 100, 0.96
                 ]
+              ]
               }
             }, labelLayerId);
             map.addLayer({
