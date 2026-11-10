@@ -1,6 +1,6 @@
 # NYC 2025 mayoral election map
 
-An interactive, election-district map of New York City's **November 4, 2025 mayoral general election**. The map keeps the visual design and interaction model of [NYC 2026 election map](https://github.com/ssupakane/nyc-2026-election-map), with 2025 mayoral results and the 2025 election-district boundaries.
+An interactive, election-district map of New York City's **November 4, 2025 mayoral general election**. The map keeps the visual design and interaction model of [NYC 2026 election map](https://github.com/ssupakane/nyc-2026-election-map), with the 2025 mayoral contest and the 2025 election-district boundaries.
 
 ## Map
 
@@ -16,9 +16,9 @@ Then open http://localhost:8000/.
 
 The map is shaded by **Cuomo's share of the Mamdani + Cuomo vote** in each election district: blue indicates Mamdani-heavy districts, cream is even, and red indicates Cuomo-heavy districts. Select an election district or assembly district to inspect candidate-level totals.
 
-## Results
+## Citywide certified results
 
-Citywide figures use the NYC Board of Elections' certified 2025 general-election recap. District results use the Board of Elections' published election-district-level CSV for the Citywide Mayor contest.
+The citywide figures below are from the NYC Board of Elections' certified 2025 general-election recap (certified December 2, 2025).
 
 | Candidate | Certified citywide votes |
 | --- | ---: |
@@ -26,16 +26,25 @@ Citywide figures use the NYC Board of Elections' certified 2025 general-election
 | Andrew M. Cuomo | 906,614 |
 | Curtis A. Sliwa | 153,749 |
 | Eric L. Adams | 6,897 |
+| Irene Estrada | 2,856 |
+| Jim Walden | 2,319 |
+| Joseph Hernandez | 1,379 |
 
-The district file reports results by election district. Its sums should not be substituted for the certified citywide recap; the map keeps those two reporting levels distinct. The district detail panel shows the district-level candidate counts available in the ED-level dataset.
+## District-level data caveat
+
+The checked-in map CSV is an archived, normalized version of the public election-district returns. It covers 4,117 election districts and agrees with the certified citywide totals for the six named candidates other than Cuomo. The district CSV sums to **901,253 Cuomo votes**, which is **5,361 fewer** than the certified citywide total of 906,614.
+
+The app deliberately keeps the two reporting levels separate: citywide scorecards show the certified recap; district shading and district detail cards use the archived ED-level file without scaling or allocating the difference. District results should therefore not be described as certified precinct-level totals. The map's Mamdani/Cuomo shading compares only those two candidates. The detail panel lists named-candidate returns; write-in votes are not included in its candidate total.
+
+The checked-in ED CSV was normalized from the public file in [joshgreenman1973/nyc-election-archive](https://github.com/joshgreenman1973/nyc-election-archive/blob/main/data/normalized/2025_general_mayor_ed_results.csv), whose project documents BOE ED-level results as its source. The [official BOE results page](https://vote.nyc/page/election-results-summary-2025) also publishes the certified Citywide Mayor ED-Level CSV.
 
 ## Geography
 
-The map uses NYC Department of City Planning election-district boundaries, **release 25C** (published August 18, 2025), which is the appropriate boundary vintage for the 2025 election. The shapefile is read in the browser using [shpjs 6.2.0](https://www.npmjs.com/package/shpjs) from the archived 25C shapefile in [ry-li/map-nyc-election](https://github.com/ry-li/map-nyc-election). The shapefile metadata identifies NYC DCP as the source.
+The map uses NYC Department of City Planning election-district boundaries, **release 25C** (published August 18, 2025), the boundary vintage for the 2025 election. The browser loads the archived 25C shapefile from [ry-li/map-nyc-election](https://github.com/ry-li/map-nyc-election/tree/main/general-mayoral-enr/shapefile) and converts it to GeoJSON with [shpjs 6.2.0](https://www.npmjs.com/package/shpjs). The shapefile metadata identifies NYC DCP as the source.
 
 ## Rebuild the district CSV
 
-The source file is the BOE's published Citywide Mayor ED-Level CSV, linked from the [2025 Election Results Summary](https://vote.nyc/page/election-results-summary-2025).
+The build script downloads the BOE's Citywide Mayor ED-Level CSV from the [2025 Election Results Summary](https://vote.nyc/page/election-results-summary-2025), combines party lines for each candidate within each election district, and writes `data/results_2025_mayor.csv`.
 
 Install the dependency and run:
 
@@ -44,13 +53,14 @@ python3 -m pip install pandas
 python3 scripts/build_2025_results.py
 ```
 
-The script downloads the BOE CSV, combines party lines for each candidate within each election district, and writes `data/results_2025_mayor.csv`.
+**Safety check:** the script compares all seven candidate totals with the certified citywide recap and refuses to overwrite the checked-in CSV if any candidate total differs. A successful rebuild is therefore required before the district file can be treated as reconciled to the certified totals.
 
 ## Sources
 
-- **Official certified citywide results and ED-Level CSV:** [NYC Board of Elections — Election Results Summary 2025](https://vote.nyc/page/election-results-summary-2025)
-- **Election-district boundaries:** NYC Department of City Planning, BYTES of the BIG APPLE, release 25C (August 18, 2025); metadata is included with the archived shapefile.
-- **Boundary archive used by the browser:** [ry-li/map-nyc-election — nyed_25c.zip](https://github.com/ry-li/map-nyc-election/tree/main/general-mayoral-enr/shapefile)
+- **Certified citywide results and certified ED-Level CSV:** [NYC Board of Elections — Election Results Summary 2025](https://vote.nyc/page/election-results-summary-2025)
+- **District CSV currently checked in:** [NYC election archive — 2025 general mayor ED results](https://github.com/joshgreenman1973/nyc-election-archive/blob/main/data/normalized/2025_general_mayor_ed_results.csv)
+- **Election-district boundaries:** NYC Department of City Planning, BYTES of the BIG APPLE, release 25C (August 18, 2025); shapefile metadata is included in the boundary archive.
+- **Boundary archive:** [ry-li/map-nyc-election — nyed_25c.zip](https://github.com/ry-li/map-nyc-election/tree/main/general-mayoral-enr/shapefile)
 
 ## Credits
 

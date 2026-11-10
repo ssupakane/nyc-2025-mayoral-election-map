@@ -261,6 +261,7 @@
         </div>
         <p class="citywide-note">Curtis A. Sliwa: 153,749 votes · Eric L. Adams: 6,897 · Irene Estrada: 2,856 · Jim Walden: 2,319 · Joseph Hernandez: 1,379.</p>
         <p class="citywide-note">Percentages compare Mamdani and Cuomo only; other candidates and write-ins are excluded.</p>
+        <p class="citywide-note">District-data caveat: the archived ED file totals 901,253 votes for Cuomo, 5,361 below the certified citywide total of 906,614. District details and map shading use the archived ED file; they are not certified district totals.</p>
       </section>
 
       <section class="district-section" aria-live="polite" aria-atomic="true">
@@ -282,8 +283,8 @@
       </section>
 
       <footer class="panel-footer">
-        Citywide figures: BOE certified recap (December 2, 2025). District figures: BOE election-district-level results.
-        Boundaries: NYC DCP 25C. <a href="https://vote.nyc/page/election-results-summary-2025" target="_blank" rel="noreferrer">Certified results and ED-level data</a>.
+        Citywide figures: BOE certified recap (December 2, 2025). District figures: archived BOE election-district return file; the Cuomo district sum does not reconcile to the certified citywide total.
+        Boundaries: NYC DCP 25C. <a href="https://vote.nyc/page/election-results-summary-2025" target="_blank" rel="noreferrer">Official certified results and ED-level data</a>.
       </footer>
     </aside>
 
@@ -706,7 +707,7 @@
           geometryResponse.arrayBuffer(),
           resultsResponse.text()
         ]);
-        const csvLines = csvText.trim().split(/\\r?\\n/);
+        const csvLines = csvText.trim().split(/\r?\n/);
         const resultsByEd = new Map();
         csvLines.slice(1).forEach((line) => {
           const values = line.split(",");
@@ -892,12 +893,6 @@
         detail.replaceChildren(element("p", "empty-copy", "Could not load 2025 election results or district boundaries. Run this site from a local HTTP server and check the external data source."));
         hint.textContent = "Map data unavailable";
       });
-
-        })
-        .catch(() => {
-          detail.replaceChildren(element("p", "empty-copy", "Could not load district geometry. Serve this folder over HTTP, not directly from file://."));
-          hint.textContent = "Map data unavailable";
-        });
     </script>
   </body>
 </html>

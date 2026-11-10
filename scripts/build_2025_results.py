@@ -27,7 +27,7 @@ EXPECTED_COLS = [
     "AD", "ED", "County", "EDAD Status", "Event", "Party/Independent Body",
     "Office/Position Title", "District Key", "VoteFor", "Unit Name", "Tally",
 ]
-NAME_PARTY_RE = re.compile(r"^(.+?)\\s*\\(([^()]+)\\)\\s*$")
+NAME_PARTY_RE = re.compile(r"^(.+?)\s*\(([^()]+)\)\s*$")
 
 CANDIDATE_FIELDS = {
     "Zohran Kwame Mamdani": "mamdani",
@@ -37,6 +37,16 @@ CANDIDATE_FIELDS = {
     "Irene Estrada": "estrada",
     "Jim Walden": "walden",
     "Joseph Hernandez": "hernandez",
+}
+
+CERTIFIED_TOTALS = {
+    "Zohran Kwame Mamdani": 1_114_184,
+    "Andrew M. Cuomo": 906_614,
+    "Curtis A. Sliwa": 153_749,
+    "Eric L. Adams": 6_897,
+    "Irene Estrada": 2_856,
+    "Jim Walden": 2_319,
+    "Joseph Hernandez": 1_379,
 }
 FIELDS = list(CANDIDATE_FIELDS.values())
 OUTPUT_COLS = ["elect_dist", "ad", "ed", *FIELDS, "total", "cuomo_share"]
@@ -83,6 +93,25 @@ def main() -> None:
         ed_id = int(row.elect_dist)
         totals[ed_id][row.field] += int(row.Tally)
 
+    actual_totals = {
+        name: sum(row[field] for row in totals.values())
+        for name, field in CANDIDATE_FIELDS.items()
+    }
+    mismatches = {
+        name: (actual_totals[name], expected)
+        for name, expected in CERTIFIED_TOTALS.items()
+        if actual_totals.get(name, 0) != expected
+    }
+    if mismatches:
+        details = "; ".join(
+            f"{name}: ED-level {actual:,} vs certified citywide {expected:,}"
+            for name, (actual, expected) in mismatches.items()
+        )
+        raise SystemExit(
+            "Refusing to replace the checked-in results: the downloaded ED-Level "
+            f"CSV does not reconcile to the certified citywide recap ({details})."
+        )
+
     OUT.parent.mkdir(parents=True, exist_ok=True)
     written = 0
     with OUT.open("w", newline="", encoding="utf-8") as handle:
@@ -105,8 +134,8 @@ def main() -> None:
             written += 1
 
     print(f"Wrote {written:,} election districts to {OUT}")
-    for field in FIELDS:
-        print(f"{field:12s} {sum(row[field] for row in totals.values()):,}")
+    for name, field in CANDIDATE_FIELDS.items():
+        print(f"{name:26s} {actual_totals[name]:,}")
 
 
 if __name__ == "__main__":
