@@ -14,7 +14,7 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000/.
 
-Each district is colored by its leading candidate among all seven named candidates (Mamdani, Cuomo, Sliwa, Adams, Estrada, Walden, and Hernandez). Each candidate has a distinct color. The district detail panel ranks all seven, compares the actual first- and second-place candidates, and reports the lead in percentage points. Fill opacity increases with the winner's margin over the runner-up.
+Each district is colored by its leading candidate among all seven named candidates (Mamdani, Cuomo, Sliwa, Adams, Estrada, Walden, and Hernandez). Each candidate has a distinct color. The district detail panel ranks all seven, compares the actual first- and second-place candidates, and reports the lead in percentage points. Fill opacity increases with the winner's margin over the runner-up; exact ties use a neutral map color.
 
 ## Citywide certified results
 

@@ -615,7 +615,7 @@
       function applyLeaderProperties(properties) {
         const ranked=candidates.map((candidate)=>({...candidate,votes:number(properties[candidate.field])})).sort((a,b)=>b.votes-a.votes);
         const total=ranked.reduce((sum,candidate)=>sum+candidate.votes,0), first=ranked[0], second=ranked[1];
-        properties.winner_key=total&&first.votes>0?first.key:"none";
+        properties.winner_key=total&&first.votes>0?(first.votes===second.votes?"tie":first.key):"none";
         properties.winner_margin=total&&first&&second?Math.max(0,(first.votes-second.votes)/total*100):0;
         return {ranked,total,first,second};
       }
@@ -635,14 +635,14 @@
         const lead=append(card,element("div","lead-card")), leadLine=append(lead,element("div","lead-line"));
         append(leadLine,element("span","lead-label","District leader"));
         const leadText=!total?"No reported candidate votes":first.votes===second.votes?first.name+" tied with "+second.name:first.name+" leads "+second.name+" by "+((first.votes-second.votes)/total*100).toFixed(1)+" pts";
-        const result=append(leadLine,element("span","lead-result",leadText)); if(total) result.style.color=first.color;
+        const result=append(leadLine,element("span","lead-result",leadText)); if(total) result.style.color=first.votes===second.votes?"#71695e":first.color;
         shareBar(lead,first,second,total);
         const grid=append(card,element("div","candidate-grid"));
         append(grid,element("p","breakdown-title","All candidates"));
         append(grid,element("span","breakdown-note","Share of named-candidate votes · ranked first to seventh"));
         ranked.forEach((candidate)=>{
           const pct=total?100*candidate.votes/total:0;
-          const item=append(grid,element("div","candidate-card"+(total&&candidate.key===first.key?" is-leader":"")));
+          const item=append(grid,element("div","candidate-card"+(total&&first.votes!==second.votes&&candidate.key===first.key?" is-leader":"")));
           item.style.setProperty("--candidate-color",candidate.color);
           append(item,element("span","candidate-name",candidate.name));
           append(item,element("strong","candidate-pct",pct.toFixed(1)+"%"));
