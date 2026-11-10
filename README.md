@@ -14,7 +14,7 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000/.
 
-Each district is ranked across all seven named candidates. Districts led by Mamdani or Cuomo use the original continuous blue–neutral–red gradient, based on their two-candidate share. Districts led by Sliwa, Adams, Estrada, Walden, or Hernandez use distinct colors. The detail panel shows all seven candidates and the actual first- and second-place finishers; exact ties use a neutral map color.
+Each district is ranked across all seven named candidates. Map color identifies the leader; the light-to-dark shade is based on that candidate's margin over the actual runner-up, with a continuous gradient from neutral for close races to the leader's candidate color for larger leads. The detail panel shows all seven candidates and the actual first- and second-place finishers. Exact ties use a neutral map color. The citywide bar is proportional across all seven certified named-candidate totals; write-ins are not included.
 
 ## Citywide certified results
 
