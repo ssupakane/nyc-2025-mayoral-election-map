@@ -639,6 +639,11 @@
         const total=ranked.reduce((sum,candidate)=>sum+candidate.votes,0), first=ranked[0], second=ranked[1];
         properties.winner_key=total&&first.votes>0?(first.votes===second.votes?"tie":first.key):"none";
         properties.winner_margin=total&&first&&second?Math.max(0,(first.votes-second.votes)/total*100):0;
+        properties.map_gradient_value=properties.winner_key==="mamdani"
+          ? (100-properties.winner_margin)/200
+          : properties.winner_key==="cuomo"
+            ? (100+properties.winner_margin)/200
+            : properties.winner_margin/100;
         return {ranked,total,first,second};
       }
       function renderDistrict(properties,isPinned,level) {
@@ -807,7 +812,7 @@
               paint: {
                 "fill-color": [
                   "match", ["get", "winner_key"],
-                  "mamdani", ["interpolate", ["linear"], ["/", ["-", 100, ["coalesce", ["get", "winner_margin"], 0]], 200],
+                  "mamdani", ["interpolate", ["linear"], ["coalesce", ["get", "map_gradient_value"], 0],
                     0, "#08306b",
                     0.05, "#124481",
                     0.1, "#275e97",
@@ -830,7 +835,7 @@
                     0.95, "#801919",
                     1, "#6e1012"
                   ],
-                  "cuomo", ["interpolate", ["linear"], ["/", ["+", 100, ["coalesce", ["get", "winner_margin"], 0]], 200],
+                  "cuomo", ["interpolate", ["linear"], ["coalesce", ["get", "map_gradient_value"], 0],
                     0, "#08306b",
                     0.05, "#124481",
                     0.1, "#275e97",
