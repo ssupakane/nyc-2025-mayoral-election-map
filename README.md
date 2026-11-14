@@ -32,9 +32,11 @@ The citywide figures below are from the NYC Board of Elections' certified 2025 g
 
 ## District-level data caveat
 
-The checked-in map CSV is an archived, normalized version of the public election-district returns. It covers 4,117 election districts and agrees with the certified citywide totals for the six named candidates other than Cuomo. The district CSV sums to **901,253 Cuomo votes**, which is **5,361 fewer** than the certified citywide total of 906,614.
+The checked-in map CSV is an archived, normalized version of the public election-district returns. It covers 4,117 election districts, and its totals for all seven named candidates now equal the certified citywide totals above (Cuomo: 906,614).
 
-The app deliberately keeps the two reporting levels separate: citywide scorecards show the certified recap; district shading and district detail cards use the archived ED-level file without scaling or allocating the difference. District results should therefore not be described as certified precinct-level totals. The map color and district lead line compare all seven named candidates. The detail panel lists named-candidate returns; write-in votes are not included in its candidate total.
+**Correction.** The archived file originally recorded zero Cuomo votes in five election districts, which left Cuomo 5,361 votes short of the certified total. Those five rows were corrected from the BOE's certified Citywide Mayor ED-Level report (Queens and Kings county files): 24049 (1,000), 27027 (1,085), 45016 (1,118), 48007 (1,140) and 48048 (1,018). The other candidates' votes in those districts already matched the BOE report, and the row totals and `cuomo_share` were recomputed. All other rows are unchanged from the archive.
+
+The app keeps the two reporting levels separate: citywide scorecards show the certified recap, and district shading and detail cards use the ED-level file. Only the five rows above were checked against the BOE report one by one; `scripts/build_2025_results.py` rebuilds the full file directly from the BOE CSV and verifies every candidate total. The map color and district lead line compare all seven named candidates. The detail panel lists named-candidate returns; write-in votes are not included in its candidate total.
 
 The checked-in ED CSV was normalized from the public file in [joshgreenman1973/nyc-election-archive](https://github.com/joshgreenman1973/nyc-election-archive/blob/main/data/normalized/2025_general_mayor_ed_results.csv), whose project documents BOE ED-level results as its source. The [official BOE results page](https://vote.nyc/page/election-results-summary-2025) also publishes the certified Citywide Mayor ED-Level CSV.
 
