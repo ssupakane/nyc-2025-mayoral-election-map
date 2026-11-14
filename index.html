@@ -79,7 +79,7 @@
       }
       .score-grid, .candidate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
       .score-card { min-width: 0; padding-left: 10px; border-left: 3px solid var(--blue); }
-      .score-card.rep { border-left-color: var(--red); }
+      .score-card.rep { border-left-color: var(--cuomo); }
       .candidate-name { display: block; color: var(--muted); font-size: 0.75rem; font-weight: 650; }
       .score-pct {
         display: block;
@@ -90,7 +90,7 @@
         font-variant-numeric: tabular-nums;
       }
       .score-card.dem .score-pct, .candidate-card.dem .candidate-pct { color: var(--blue); }
-      .score-card.rep .score-pct, .candidate-card.rep .candidate-pct { color: var(--red); }
+      .score-card.rep .score-pct, .candidate-card.rep .candidate-pct { color: var(--cuomo); }
       .score-votes { display: block; margin-top: 4px; color: var(--muted); font-size: 0.72rem; font-variant-numeric: tabular-nums; }
       .share-track { display: flex; width: 100%; height: 7px; overflow: hidden; margin-top: 8px; border-radius: 20px; background: #e9e3d9; }
       .lead-card .share-track { height: 6px; margin-top: 7px; }
@@ -105,7 +105,7 @@
       .mode-toggle button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
       .interaction-hint { margin: 0 0 7px; color: var(--muted); font-size: 0.64rem; }
       .map-legend { margin-top: 8px; }
-      .map-legend-track { height: 6px; border-radius: 99px; background: linear-gradient(90deg, #08306b 0%, #124481 5%, #275e97 10%, #4578aa 15%, #6390b9 20%, #769ec2 25%, #7ea4c6 30%, #96b7ce 35%, #abc8d7 40%, #c8d8db 45%, #ece8dc 50%, #eacdc0 55%, #e6b4a6 60%, #de9d8f 65%, #d47d70 70%, #c96054 75%, #ba4b42 80%, #aa342d 85%, #952622 90%, #801919 95%, #6e1012 100%); }
+      .map-legend-track { height: 6px; border-radius: 99px; background: linear-gradient(90deg, #08306b 0%, #124481 5%, #275e97 10%, #4578aa 15%, #6390b9 20%, #769ec2 25%, #7ea4c6 30%, #96b7ce 35%, #abc8d7 40%, #c8d8db 45%, #ece8dc 50%, #eaddc0 55%, #e6d3a6 60%, #dec68f 65%, #d4b670 70%, #c9a654 75%, #ba9642 80%, #aa852d 85%, #957322 90%, #806119 95%, #6e5210 100%); }
       .map-legend-labels { display: flex; justify-content: space-between; margin-top: 3px; color: var(--muted); font-size: 0.58rem; letter-spacing: 0.02em; }
       .empty-state {
         padding: 18px 14px;
@@ -236,7 +236,7 @@
         .maplibregl-ctrl-bottom-right { bottom: 8px !important; right: 8px !important; }
       }
 
-      :root { --mamdani:#245b92; --cuomo:#ae3b38; --sliwa:#bd781f; --adams:#7651a0; --estrada:#16806f; --walden:#687782; --hernandez:#a05a7a; }
+      :root { --mamdani:#245b92; --cuomo:#ae8b38; --sliwa:#ae3b38; --adams:#7651a0; --estrada:#16806f; --walden:#687782; --hernandez:#a05a7a; }
       .panel-header { padding:10px 14px 7px; } h1 { font-size:1.38rem; } .lede { font-size:.75rem; line-height:1.3; }
       .citywide { margin:0 14px 8px; padding:7px 9px 6px; } .section-label { margin-bottom:5px; font-size:.62rem; }
       .score-grid { gap:7px; } .score-card { padding-left:7px; border-left-width:3px; } .score-pct { margin-top:1px; font-size:1.27rem; }
@@ -627,8 +627,8 @@
       }
       const candidates = [
         {name:"Zohran Kwame Mamdani",short:"Mamdani",field:"mamdani",key:"mamdani",color:"#245b92"},
-        {name:"Andrew M. Cuomo",short:"Cuomo",field:"cuomo",key:"cuomo",color:"#ae3b38"},
-        {name:"Curtis A. Sliwa",short:"Sliwa",field:"sliwa",key:"sliwa",color:"#bd781f"},
+        {name:"Andrew M. Cuomo",short:"Cuomo",field:"cuomo",key:"cuomo",color:"#ae8b38"},
+        {name:"Curtis A. Sliwa",short:"Sliwa",field:"sliwa",key:"sliwa",color:"#ae3b38"},
         {name:"Eric L. Adams",short:"Adams",field:"adams",key:"adams",color:"#7651a0"},
         {name:"Irene Estrada",short:"Estrada",field:"estrada",key:"estrada",color:"#16806f"},
         {name:"Jim Walden",short:"Walden",field:"walden",key:"walden",color:"#687782"},
@@ -835,72 +835,93 @@
                     0.95, "#801919",
                     1, "#6e1012"
                   ],
-                  "cuomo", ["interpolate", ["linear"], ["coalesce", ["get", "map_gradient_value"], 0],
-                    0, "#08306b",
-                    0.05, "#124481",
-                    0.1, "#275e97",
-                    0.15, "#4578aa",
-                    0.2, "#6390b9",
-                    0.25, "#769ec2",
-                    0.3, "#7ea4c6",
-                    0.35, "#96b7ce",
-                    0.4, "#abc8d7",
-                    0.45, "#c8d8db",
-                    0.5, "#ece8dc",
-                    0.55, "#eacdc0",
-                    0.6, "#e6b4a6",
-                    0.65, "#de9d8f",
-                    0.7, "#d47d70",
-                    0.75, "#c96054",
-                    0.8, "#ba4b42",
-                    0.85, "#aa342d",
-                    0.9, "#952622",
-                    0.95, "#801919",
-                    1, "#6e1012"
+                  "cuomo", ["interpolate", ["linear"], ["coalesce", ["get", "winner_margin"], 0],
+                    0,
+                    "#ece8dc",
+                    5,
+                    "#ebe3ce",
+                    10,
+                    "#eaddc0",
+                    15,
+                    "#e8d8b3",
+                    20,
+                    "#e6d3a6",
+                    25,
+                    "#e2cd9b",
+                    30,
+                    "#dec68f",
+                    35,
+                    "#d9be80",
+                    40,
+                    "#d4b670",
+                    45,
+                    "#cfae62",
+                    50,
+                    "#c9a654",
+                    55,
+                    "#c29e4b",
+                    60,
+                    "#ba9642",
+                    65,
+                    "#b28e38",
+                    70,
+                    "#aa852d",
+                    75,
+                    "#a07c28",
+                    80,
+                    "#957322",
+                    85,
+                    "#8b6a1e",
+                    90,
+                    "#806119",
+                    95,
+                    "#775a15",
+                    100,
+                    "#6e5210"
                   ],
                   "sliwa", ["interpolate", ["linear"], ["coalesce", ["get", "winner_margin"], 0],
                     0,
                     "#ece8dc",
                     5,
-                    "#eae2d3",
+                    "#ebdbce",
                     10,
-                    "#e7ddc9",
+                    "#eacdc0",
                     15,
-                    "#e5d7c0",
+                    "#e8c1b3",
                     20,
-                    "#e3d2b6",
+                    "#e6b4a6",
                     25,
-                    "#e0ccad",
+                    "#e2a99b",
                     30,
-                    "#dec6a3",
+                    "#de9d8f",
                     35,
-                    "#dcc19a",
+                    "#d98d80",
                     40,
-                    "#d9bb90",
+                    "#d47d70",
                     45,
-                    "#d7b687",
+                    "#cf6f62",
                     50,
-                    "#d5b07e",
+                    "#c96054",
                     55,
-                    "#d2aa74",
+                    "#c2564b",
                     60,
-                    "#d0a56b",
+                    "#ba4b42",
                     65,
-                    "#cd9f61",
+                    "#b24038",
                     70,
-                    "#cb9a58",
+                    "#aa342d",
                     75,
-                    "#c9944e",
+                    "#a02d28",
                     80,
-                    "#c68e45",
+                    "#952622",
                     85,
-                    "#c4893b",
+                    "#8b201e",
                     90,
-                    "#c28332",
+                    "#801919",
                     95,
-                    "#bf7e28",
+                    "#771516",
                     100,
-                    "#bd781f"
+                    "#6e1012"
                   ],
                   "adams", ["interpolate", ["linear"], ["coalesce", ["get", "winner_margin"], 0],
                     0,
