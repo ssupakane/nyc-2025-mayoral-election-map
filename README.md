@@ -14,21 +14,18 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000/.
 
-Each district is ranked across all seven named candidates. Map color identifies the leader; shade intensity reflects the leader's margin over the actual runner-up. Mamdani keeps the blue half of the original 2026 gradient, from neutral at a tie to blue at a 100-point lead. Cuomo uses that same lightness ramp with the hue shifted from red to gold, so a Cuomo district does not read as Republican. Sliwa, the Republican nominee, uses the red ramp. Other candidates keep their own color ramps. Exact ties use a neutral map color. The citywide bar is proportional across all seven certified named-candidate totals; write-ins are not included.
+Each district is ranked across four display groups: Mamdani, Cuomo, Sliwa, and Other (Adams, Estrada, Walden, and Hernandez combined). Map color identifies the leading group; shade intensity reflects the lead over the actual runner-up. Mamdani uses the blue ramp, Cuomo uses the gold ramp, Sliwa uses the red ramp, and Other uses a neutral taupe ramp. Exact ties use a neutral map color. The citywide scorecards, bar, and district detail show the same four groups. Write-in votes are not included.
 
 ## Citywide certified results
 
 The citywide figures below are from the NYC Board of Elections' certified 2025 general-election recap (certified December 2, 2025).
 
-| Candidate | Certified citywide votes |
+| Display group | Certified citywide votes |
 | --- | ---: |
-| Zohran Kwame Mamdani | 1,114,184 |
-| Andrew M. Cuomo | 906,614 |
-| Curtis A. Sliwa | 153,749 |
-| Eric L. Adams | 6,897 |
-| Irene Estrada | 2,856 |
-| Jim Walden | 2,319 |
-| Joseph Hernandez | 1,379 |
+| Mamdani | 1,114,184 |
+| Cuomo | 906,614 |
+| Sliwa | 153,749 |
+| Other (Adams, Estrada, Walden, Hernandez) | 13,451 |
 
 ## District-level data caveat
 
@@ -36,7 +33,7 @@ The checked-in map CSV is an archived, normalized version of the public election
 
 **Correction.** The archived file originally recorded zero Cuomo votes in five election districts, which left Cuomo 5,361 votes short of the certified total. Those five rows were corrected from the BOE's certified Citywide Mayor ED-Level report (Queens and Kings county files): 24049 (1,000), 27027 (1,085), 45016 (1,118), 48007 (1,140) and 48048 (1,018). The other candidates' votes in those districts already matched the BOE report, and the row totals and `cuomo_share` were recomputed. All other rows are unchanged from the archive.
 
-The app keeps the two reporting levels separate: citywide scorecards show the certified recap, and district shading and detail cards use the ED-level file. Only the five rows above were checked against the BOE report one by one; `scripts/build_2025_results.py` rebuilds the full file directly from the BOE CSV and verifies every candidate total. The map color and district lead line compare all seven named candidates. The detail panel lists named-candidate returns; write-in votes are not included in its candidate total.
+The app keeps the two reporting levels separate: citywide scorecards show the certified recap, and district shading and detail cards use the ED-level file. Only the five rows above were checked against the BOE report one by one; `scripts/build_2025_results.py` rebuilds the full file directly from the BOE CSV and verifies every candidate total. The map color, district lead line, and detail panel compare the same four display groups. Other combines Adams, Estrada, Walden, and Hernandez. Write-in votes are not included in district candidate totals.
 
 The checked-in ED CSV was normalized from the public file in [joshgreenman1973/nyc-election-archive](https://github.com/joshgreenman1973/nyc-election-archive/blob/main/data/normalized/2025_general_mayor_ed_results.csv), whose project documents BOE ED-level results as its source. The [official BOE results page](https://vote.nyc/page/election-results-summary-2025) also publishes the certified Citywide Mayor ED-Level CSV.
 
