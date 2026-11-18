@@ -236,27 +236,20 @@
         .maplibregl-ctrl-bottom-right { bottom: 8px !important; right: 8px !important; }
       }
 
-      :root { --mamdani:#245b92; --cuomo:#ae8b38; --sliwa:#ae3b38; --adams:#7651a0; --estrada:#16806f; --walden:#687782; --hernandez:#a05a7a; }
-      .panel-header { padding:10px 14px 7px; } h1 { font-size:1.38rem; } .lede { font-size:.75rem; line-height:1.3; }
-      .citywide { margin:0 14px 8px; padding:7px 9px 6px; } .section-label { margin-bottom:5px; font-size:.62rem; }
-      .score-grid { gap:7px; } .score-card { padding-left:7px; border-left-width:3px; } .score-pct { margin-top:1px; font-size:1.27rem; }
-      .score-votes { margin-top:2px; font-size:.64rem; } .share-track { height:5px; margin-top:6px; }
-      .map-legend { margin-top:6px; } .candidate-legend { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:3px 8px; }
-      .candidate-legend-item { display:flex; align-items:center; gap:5px; min-width:0; color:var(--muted); font-size:.61rem; line-height:1.2; }
-      .candidate-legend-swatch { flex:0 0 auto; width:8px; height:8px; border-radius:2px; }
-      .citywide-note { margin:5px 1px 0; font-size:.60rem; line-height:1.28; }
-      .district-section { padding:9px 14px; } .interaction-hint { margin-bottom:5px; font-size:.61rem; } .district-card { gap:5px; }
-      .district-title { font-size:.90rem; } .district-subtitle { font-size:.64rem; } .lead-card { padding:5px 7px; }
-      .lead-line { align-items:center; } .lead-label { font-size:.60rem; } .lead-result { font-size:.68rem; }
-      .lead-card .share-track { height:5px; margin-top:5px; } .share-track .other-fill { background:#e9e3d9; }
-      .candidate-grid { gap:4px; column-gap:5px; } .candidate-grid .breakdown-title,.candidate-grid .breakdown-note { grid-column:1/-1; }
-      .candidate-card { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:baseline; gap:1px 4px; min-height:0; padding:4px 6px; border-top:3px solid var(--candidate-color,#8a8175); border-radius:7px; }
-      .candidate-card .candidate-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.62rem; line-height:1.15; }
-      .candidate-card .candidate-pct { grid-column:2; grid-row:1; margin:0; color:var(--candidate-color,var(--muted)); font-family:"IBM Plex Sans","Segoe UI",sans-serif; font-size:.91rem; font-weight:750; line-height:1; }
-      .candidate-card .candidate-votes { grid-column:1/-1; margin:0; font-size:.58rem; line-height:1.15; }
-      .candidate-card.is-leader { background:#fffaf0; border-bottom:1px solid var(--candidate-color); }
-      .panel-footer { padding:6px 14px 8px; font-size:.59rem; line-height:1.28; }
-      @media(max-width:560px) { .panel-header{padding:9px 12px 6px}.citywide{margin:0 12px 7px;padding:6px 8px}.district-section{padding:8px 12px}.candidate-grid{column-gap:4px}.candidate-card .candidate-name{font-size:.59rem}.candidate-card .candidate-pct{font-size:.85rem}.candidate-card .candidate-votes{font-size:.56rem}.panel-footer{padding:6px 12px 7px} }
+      :root { --mamdani:#245b92; --cuomo:#ae8b38; --sliwa:#ae3b38; --other:#8a8175; }
+      .score-card.dem { border-left-color: var(--mamdani); }
+      .score-card.sliwa { border-left-color: var(--sliwa); }
+      .score-card.other { border-left-color: var(--other); }
+      .score-card.dem .score-pct { color: var(--mamdani); }
+      .score-card.sliwa .score-pct { color: var(--sliwa); }
+      .score-card.other .score-pct { color: var(--other); }
+      .candidate-card { border-top-color: var(--candidate-color, var(--blue)); }
+      .candidate-card .candidate-pct { color: var(--candidate-color, var(--ink)); }
+      .candidate-card.is-leader { background: #fffaf0; border-bottom: 1px solid var(--candidate-color, var(--line)); }
+      .candidate-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 10px; }
+      .candidate-legend-item { display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--muted); font-size: 0.72rem; line-height: 1.35; }
+      .candidate-legend-swatch { flex: 0 0 auto; width: 9px; height: 9px; border-radius: 2px; }
+      .citywide-note { font-size: 0.70rem; line-height: 1.4; }
     </style>
   </head>
   <body>
@@ -268,51 +261,46 @@
       </header>
 
       <section class="citywide" aria-label="Citywide certified results">
-        <p class="section-label">Citywide · Mamdani–Cuomo share</p>
+        <p class="section-label">Citywide · share of named-candidate votes</p>
         <div class="score-grid">
           <div class="score-card dem">
             <span class="candidate-name">Mamdani</span>
-            <strong class="score-pct">55.1%</strong>
+            <strong class="score-pct">50.9%</strong>
             <span class="score-votes">1,114,184 votes</span>
           </div>
           <div class="score-card rep">
             <span class="candidate-name">Cuomo</span>
-            <strong class="score-pct">44.9%</strong>
+            <strong class="score-pct">41.4%</strong>
             <span class="score-votes">906,614 votes</span>
           </div>
+          <div class="score-card sliwa">
+            <span class="candidate-name">Sliwa</span>
+            <strong class="score-pct">7.0%</strong>
+            <span class="score-votes">153,749 votes</span>
+          </div>
+          <div class="score-card other">
+            <span class="candidate-name">Other</span>
+            <strong class="score-pct">0.6%</strong>
+            <span class="score-votes">13,451 votes</span>
+          </div>
         </div>
-        <div class="citywide-all-label"><span>All 7 named candidates</span><strong>2,187,998 votes</strong></div>
-        <div class="share-track citywide-share-track" role="img" aria-label="Share of 2,187,998 votes across seven named candidates: Mamdani 50.9 percent, Cuomo 41.4 percent, Sliwa 7.0 percent, Adams 0.3 percent, Estrada 0.1 percent, Walden 0.1 percent, Hernandez 0.1 percent">
+        <div class="citywide-all-label"><span>Named-candidate votes · four groups</span><strong>2,187,998 votes</strong></div>
+        <div class="share-track citywide-share-track" role="img" aria-label="Share of 2,187,998 named-candidate votes: Mamdani 50.9 percent, Cuomo 41.4 percent, Sliwa 7.0 percent, Other 0.6 percent">
           <span class="citywide-segment" title="Mamdani: 1,114,184" style="width:50.922533%;background:var(--mamdani)"></span>
           <span class="citywide-segment" title="Cuomo: 906,614" style="width:41.435778%;background:var(--cuomo)"></span>
           <span class="citywide-segment" title="Sliwa: 153,749" style="width:7.026926%;background:var(--sliwa)"></span>
-          <span class="citywide-segment" title="Adams: 6,897" style="width:0.315220%;background:var(--adams)"></span>
-          <span class="citywide-segment" title="Estrada: 2,856" style="width:0.130530%;background:var(--estrada)"></span>
-          <span class="citywide-segment" title="Walden: 2,319" style="width:0.105987%;background:var(--walden)"></span>
-          <span class="citywide-segment" title="Hernandez: 1,379" style="width:0.063026%;background:var(--hernandez)"></span>
+          <span class="citywide-segment" title="Other: 13,451" style="width:0.614763%;background:var(--other)"></span>
         </div>
-        <div class="map-legend" aria-label="Candidate color key">
+        <div class="map-legend" aria-label="Candidate group color key">
           <div class="candidate-legend">
             <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--mamdani)"></i>Mamdani 50.9%</span>
             <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--cuomo)"></i>Cuomo 41.4%</span>
             <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--sliwa)"></i>Sliwa 7.0%</span>
-            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--adams)"></i>Adams 0.3%</span>
-            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--estrada)"></i>Estrada 0.1%</span>
-            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--walden)"></i>Walden 0.1%</span>
-            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--hernandez)"></i>Hernandez 0.1%</span>
+            <span class="candidate-legend-item"><i class="candidate-legend-swatch" style="background:var(--other)"></i>Other 0.6%</span>
           </div>
         </div>
-        <p class="citywide-note">Map: color identifies the district leader; darker shades mean a larger lead over second place.</p>
-        <p class="citywide-other-heading">Other candidates · certified votes</p>
-        <div class="citywide-other-grid" aria-label="Other candidates' certified citywide votes">
-          <div class="citywide-other-item"><span>Sliwa</span><strong>153,749</strong></div>
-          <div class="citywide-other-item"><span>Adams</span><strong>6,897</strong></div>
-          <div class="citywide-other-item"><span>Estrada</span><strong>2,856</strong></div>
-          <div class="citywide-other-item"><span>Walden</span><strong>2,319</strong></div>
-          <div class="citywide-other-item"><span>Hernandez</span><strong>1,379</strong></div>
-        </div>
-        <p class="citywide-note">The percentages above compare Mamdani and Cuomo only.</p>
-        <p class="citywide-note">District totals for all seven candidates sum to the certified citywide totals. District returns come from an archived copy of the BOE ED-level file.</p>
+        <p class="citywide-note">Other combines Adams, Estrada, Walden and Hernandez. Write-in votes are excluded.</p>
+        <p class="citywide-note">District results use the same four groups and the archived BOE election-district returns.</p>
       </section>
 
       <section class="district-section" aria-live="polite" aria-atomic="true">
@@ -609,7 +597,7 @@
         const track=append(parent,element("div","share-track"));
         const firstPct=total?100*first.votes/total:0, secondPct=total?100*second.votes/total:0;
         const otherPct=Math.max(0,100-firstPct-secondPct);
-        track.setAttribute("aria-label",first.name+" "+firstPct.toFixed(1)+" percent, "+second.name+" "+secondPct.toFixed(1)+" percent, other candidates "+otherPct.toFixed(1)+" percent");
+        track.setAttribute("aria-label",first.name+" "+firstPct.toFixed(1)+" percent, "+second.name+" "+secondPct.toFixed(1)+" percent, remaining groups "+otherPct.toFixed(1)+" percent");
         const a=append(track,element("span","dem-fill")); a.style.width=firstPct+"%"; a.style.background=first.color;
         const b=append(track,element("span","rep-fill")); b.style.width=secondPct+"%"; b.style.background=second.color;
         const c=append(track,element("span","other-fill")); c.style.width=otherPct+"%";
@@ -629,13 +617,12 @@
         {name:"Zohran Kwame Mamdani",short:"Mamdani",field:"mamdani",key:"mamdani",color:"#245b92"},
         {name:"Andrew M. Cuomo",short:"Cuomo",field:"cuomo",key:"cuomo",color:"#ae8b38"},
         {name:"Curtis A. Sliwa",short:"Sliwa",field:"sliwa",key:"sliwa",color:"#ae3b38"},
-        {name:"Eric L. Adams",short:"Adams",field:"adams",key:"adams",color:"#7651a0"},
-        {name:"Irene Estrada",short:"Estrada",field:"estrada",key:"estrada",color:"#16806f"},
-        {name:"Jim Walden",short:"Walden",field:"walden",key:"walden",color:"#687782"},
-        {name:"Joseph Hernandez",short:"Hernandez",field:"hernandez",key:"hernandez",color:"#a05a7a"}
+        {name:"Other",short:"Other",field:"other",key:"other",color:"#8a8175"}
       ];
       function applyLeaderProperties(properties) {
-        const ranked=candidates.map((candidate)=>({...candidate,votes:number(properties[candidate.field])})).sort((a,b)=>b.votes-a.votes);
+        const otherVotes = number(properties.adams) + number(properties.estrada) + number(properties.walden) + number(properties.hernandez);
+        properties.other = otherVotes;
+        const ranked=candidates.map((candidate)=>({...candidate,votes:candidate.key==="other"?otherVotes:number(properties[candidate.field])})).sort((a,b)=>b.votes-a.votes);
         const total=ranked.reduce((sum,candidate)=>sum+candidate.votes,0), first=ranked[0], second=ranked[1];
         properties.winner_key=total&&first.votes>0?(first.votes===second.votes?"tie":first.key):"none";
         properties.winner_margin=total&&first&&second?Math.max(0,(first.votes-second.votes)/total*100):0;
@@ -665,10 +652,10 @@
         const result=append(leadLine,element("span","lead-result",leadText)); if(total) result.style.color=first.votes===second.votes?"#71695e":first.color;
         shareBar(lead,first,second,total);
         const grid=append(card,element("div","candidate-grid"));
-        append(grid,element("p","breakdown-title","Named candidates"));
+        append(grid,element("p","breakdown-title","Candidate groups"));
         ranked.forEach((candidate)=>{
           const pct=total?100*candidate.votes/total:0;
-          const item=append(grid,element("div","candidate-card"+(total&&first.votes!==second.votes&&candidate.key===first.key?" is-leader":"")));
+          const item=append(grid,element("div","candidate-card "+candidate.key+(total&&first.votes!==second.votes&&candidate.key===first.key?" is-leader":"")));
           item.style.setProperty("--candidate-color",candidate.color);
           append(item,element("span","candidate-name",candidate.short));
           append(item,element("strong","candidate-pct",pct.toFixed(1)+"%"));
@@ -923,183 +910,19 @@
                     100,
                     "#6e1012"
                   ],
-                  "adams", ["interpolate", ["linear"], ["coalesce", ["get", "winner_margin"], 0],
-                    0,
-                    "#ece8dc",
-                    5,
-                    "#e6e0d9",
-                    10,
-                    "#e0d9d6",
-                    15,
-                    "#dad1d3",
-                    20,
-                    "#d4cad0",
-                    25,
-                    "#cfc2cd",
-                    30,
-                    "#c9bbca",
-                    35,
-                    "#c3b3c7",
-                    40,
-                    "#bdacc4",
-                    45,
-                    "#b7a4c1",
-                    50,
-                    "#b19dbe",
-                    55,
-                    "#ab95bb",
-                    60,
-                    "#a58db8",
-                    65,
-                    "#9f86b5",
-                    70,
-                    "#997eb2",
-                    75,
-                    "#9477af",
-                    80,
-                    "#8e6fac",
-                    85,
-                    "#8868a9",
-                    90,
-                    "#8260a6",
-                    95,
-                    "#7c59a3",
-                    100,
-                    "#7651a0"
+                  "other", ["interpolate", ["linear"], ["coalesce", ["get", "winner_margin"], 0],
+                    0, "#ece8dc",
+                    10, "#dedbd3",
+                    20, "#cfcac0",
+                    30, "#c0b9ac",
+                    40, "#b0a999",
+                    50, "#a09685",
+                    60, "#8f8371",
+                    70, "#7e715f",
+                    80, "#6d6050",
+                    90, "#5d5043",
+                    100, "#4e4238"
                   ],
-                  "estrada", ["interpolate", ["linear"], ["coalesce", ["get", "winner_margin"], 0],
-                    0,
-                    "#ece8dc",
-                    5,
-                    "#e1e3d7",
-                    10,
-                    "#d7ded1",
-                    15,
-                    "#ccd8cc",
-                    20,
-                    "#c1d3c6",
-                    25,
-                    "#b7cec1",
-                    30,
-                    "#acc9bb",
-                    35,
-                    "#a1c4b6",
-                    40,
-                    "#96beb0",
-                    45,
-                    "#8cb9ab",
-                    50,
-                    "#81b4a6",
-                    55,
-                    "#76afa0",
-                    60,
-                    "#6caa9b",
-                    65,
-                    "#61a495",
-                    70,
-                    "#569f90",
-                    75,
-                    "#4c9a8a",
-                    80,
-                    "#419585",
-                    85,
-                    "#36907f",
-                    90,
-                    "#2b8a7a",
-                    95,
-                    "#218574",
-                    100,
-                    "#16806f"
-                  ],
-                  "walden", ["interpolate", ["linear"], ["coalesce", ["get", "winner_margin"], 0],
-                    0,
-                    "#ece8dc",
-                    5,
-                    "#e5e2d8",
-                    10,
-                    "#dfddd3",
-                    15,
-                    "#d8d7cf",
-                    20,
-                    "#d2d1ca",
-                    25,
-                    "#cbccc6",
-                    30,
-                    "#c4c6c1",
-                    35,
-                    "#bec0bd",
-                    40,
-                    "#b7bbb8",
-                    45,
-                    "#b1b5b4",
-                    50,
-                    "#aab0af",
-                    55,
-                    "#a3aaab",
-                    60,
-                    "#9da4a6",
-                    65,
-                    "#969fa2",
-                    70,
-                    "#90999d",
-                    75,
-                    "#899399",
-                    80,
-                    "#828e94",
-                    85,
-                    "#7c8890",
-                    90,
-                    "#75828b",
-                    95,
-                    "#6f7d87",
-                    100,
-                    "#687782"
-                  ],
-                  "hernandez", ["interpolate", ["linear"], ["coalesce", ["get", "winner_margin"], 0],
-                    0,
-                    "#ece8dc",
-                    5,
-                    "#e8e1d7",
-                    10,
-                    "#e4dad2",
-                    15,
-                    "#e1d3cd",
-                    20,
-                    "#ddccc8",
-                    25,
-                    "#d9c5c4",
-                    30,
-                    "#d5bdbf",
-                    35,
-                    "#d1b6ba",
-                    40,
-                    "#ceafb5",
-                    45,
-                    "#caa8b0",
-                    50,
-                    "#c6a1ab",
-                    55,
-                    "#c29aa6",
-                    60,
-                    "#be93a1",
-                    65,
-                    "#bb8c9c",
-                    70,
-                    "#b78597",
-                    75,
-                    "#b37e93",
-                    80,
-                    "#af768e",
-                    85,
-                    "#ab6f89",
-                    90,
-                    "#a86884",
-                    95,
-                    "#a4617f",
-                    100,
-                    "#a05a7a"
-                  ]
-                  ,
                   "tie", "#ece8dc",
                   "none", "#e9e3d9",
                   "#e9e3d9"
